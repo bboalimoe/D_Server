@@ -15,18 +15,7 @@ import string
 #from preprocessing import proc
 
 def proc(res):
-    if res['vinNum'] == "LVBV3FBB1DE041849":
-       res['vinNum'] = 'LVBV3PBB1DE041849'
-    if res["vinNum"] == 'LLZWACAGXA7113587':
-       res['vinNum'] = 'LZWACAGAXA7113587'
-    if res['vinNum'] == 'LGWEF3A599B055713':
-       res['vinNum'] = 'LGWEF3A599B055913'
-    if res['vinNum'] == 'LZWACAGABB7106194':
-       res['vinNum'] = 'LZWACAGA8B7108194'
-    if res['vinNum'] == 'LVVDC11B6AD02F189':
-       res['vinNum'] = 'LVVDC11B6AD025189'
-    if res['vinNum'] == 'LSVNY41Z7B271889M':
-       res['vinNum'] = 'LSVNY41Z7B2718894'
+    
     return res
 
 def fname():
