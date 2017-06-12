@@ -13,6 +13,8 @@ import time
 import random
 import string
 #from preprocessing import proc
+from licenseRec import process
+
 
 def proc(res):
     
@@ -25,11 +27,14 @@ def fname():
 
 app = Flask(__name__)
 
-path = '/home/ubuntu/ocr/VLRecognitionSuiteServerSO/Debug/photos/'
+path = '/home/advanpro/photos'
 temp_path = '/home/ubuntu/ocr/VLRecognitionSuiteServerSO/Debug/temp.jpg'
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    if request.method == 'GET':
+        return "no GET method supported"
+
     if request.method == 'POST':
         file = request.files['filename']
         _headers = request.headers
@@ -60,18 +65,24 @@ def upload():
 #	f_name2 = path + "btest.jpg"
 #        res2 = pi.process_image(f_name2, r1, r2, v1, v2) 
 #	print json.dumps(res2)
-        res = pi.process_image(f_name, r1, r2, v1, v2)
-        if res['flag'] != 6 and res['flag'] != 5:
-            if os.path.exists(f_name):
-                os.remove(f_name)
-            else:
-                print 'no such file:%s' % f_name
-            file.flush()
+        #res = pi.process_image(f_name, r1, r2, v1, v2)
+
+        #img_path = "/home/advanpro/OCR-CORE/raw_image/license-train/test_new.jpg"
+        status, info = process(img_path)
+        print type(info), info
+        for (k,v) in info.items():
+            print(k+':'+v.encode('utf-8'))
+
+        # if res['flag'] != 6 and res['flag'] != 5:
+        #     if os.path.exists(f_name):
+        #         os.remove(f_name)
+        #     else:
+        #         print 'no such file:%s' % f_name
+        #     file.flush()
         print "=========start======="
-        print res
         print "=========end========="
-        res = proc(res)
-        return json.dumps(res).encode('utf8')
+        #res = proc()
+        return json.dumps(info).encode('utf8')
 
 
 if __name__ == "__main__":
